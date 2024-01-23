@@ -9,13 +9,19 @@ void windowFunction(int winX, int winY){
         std::cout << "sdl does work actually tho" << std::endl;
     }
 
-    SDL_Window* win = SDL_CreateWindow("SDL2_Test",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,winX,winY,0);
+    SDL_Window* topscr = SDL_CreateWindow("SDL2_Test",0,0,400,240,0);
+    SDL_Window * bottomscr = SDL_CreateWindow("SDL2_Test",0,240,320,240,0);
 
-    SDL_Renderer * screen = SDL_CreateRenderer(win,-1, SDL_RENDERER_SOFTWARE);
+    SDL_Renderer * topscreen = SDL_CreateRenderer(topscr,-1, SDL_RENDERER_SOFTWARE);
+    SDL_Renderer * bottomscreen = SDL_CreateRenderer(bottomscr,-1, SDL_RENDERER_SOFTWARE);
 
-    item bob;
-    bob.setRenderer(screen);
-    bob.loadImage("cards/w.png");
+    item card;
+    card.setRenderer(bottomscreen);
+    card.loadImage("cards/w.png");
+
+    item card2;
+    card2.setRenderer(topscreen);
+    card2.loadImage("cards/b4.png");
 
     int close = 0;
 
@@ -30,10 +36,16 @@ void windowFunction(int winX, int winY){
                     break;
             }
         }
-        SDL_RenderClear(screen);
-        bob.setSize(235,325);
-        bob.draw(ang);
-        SDL_RenderPresent(screen);
+        SDL_RenderClear(bottomscreen);
+        card.setSize(20,30);
+        card.draw(ang);
+        SDL_RenderPresent(bottomscreen);
+
+        SDL_RenderClear(topscreen);
+        card2.setSize(20,30);
+        card2.draw(ang);
+        SDL_RenderPresent(topscreen);
+
         ang ++;
     }
 }
